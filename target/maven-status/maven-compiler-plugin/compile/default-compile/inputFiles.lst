@@ -1,0 +1,12 @@
+/mnt/c/Users/User/Maven/spring-boot-react-example/src/main/java/com/contoso/payroll/HomeController.java
+/mnt/c/Users/User/Maven/spring-boot-react-example/src/main/java/com/contoso/payroll/Manager.java
+/mnt/c/Users/User/Maven/spring-boot-react-example/src/main/java/com/contoso/payroll/SpringDataJpaUserDetailsService.java
+/mnt/c/Users/User/Maven/spring-boot-react-example/src/main/java/com/contoso/payroll/EmployeeRepository.java
+/mnt/c/Users/User/Maven/spring-boot-react-example/src/main/java/com/contoso/payroll/ReactAndSpringDataRestApplication.java
+/mnt/c/Users/User/Maven/spring-boot-react-example/src/main/java/com/contoso/payroll/ManagerRepository.java
+/mnt/c/Users/User/Maven/spring-boot-react-example/src/main/java/com/contoso/payroll/SecurityConfiguration.java
+/mnt/c/Users/User/Maven/spring-boot-react-example/src/main/java/com/contoso/payroll/SpringDataRestEventHandler.java
+/mnt/c/Users/User/Maven/spring-boot-react-example/src/main/java/com/contoso/payroll/WebSocketConfiguration.java
+/mnt/c/Users/User/Maven/spring-boot-react-example/src/main/java/com/contoso/payroll/DatabaseLoader.java
+/mnt/c/Users/User/Maven/spring-boot-react-example/src/main/java/com/contoso/payroll/EventHandler.java
+/mnt/c/Users/User/Maven/spring-boot-react-example/src/main/java/com/contoso/payroll/Employee.java
