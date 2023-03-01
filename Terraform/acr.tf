@@ -1,10 +1,8 @@
-provider "azurerm" {
-  features {}
-}
 resource "azurerm_resource_group" "rg" {
-  name     = "mavenRG"
+  name     = var.resource_group_name
   location = "eastus"
 }
+
 resource "azurerm_container_registry" "acr" {
   name                = "mavenacr2023"
   resource_group_name = azurerm_resource_group.rg.name
