@@ -1,0 +1,45 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger: none
+
+stages:
+
+###################################################
+########### Create Infrastructure Stage ###########
+###################################################
+
+- stage: CreateIAC
+  jobs:
+  - job: CreateIAC
+    displayName: Create IAC
+    pool:
+      vmImage: 'Ubuntu-18.04'
+    steps:
+
+    #Initialize Terraform backend to a remote Azure storage account
+      - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV4@4
+        displayName: 'Terraform : init'
+        inputs:
+          workingDirectory: Terraform
+          backendServiceArm: 'Visual Studio Enterprise (0baeb8ad-3e0a-4c8f-a740-07e0327cc188)'
+          backendAzureRmResourceGroupName: 'OKUNS-RG'
+          backendAzureRmStorageAccountName: mavenstorage123
+          backendAzureRmContainerName: mavencont
+          backendAzureRmKey: terraformdev.tfstate
+
+      - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV4@4
+        displayName: 'Terraform : plan'
+        inputs:
+          command: plan
+          workingDirectory: Terraform
+          environmentServiceNameAzureRM: 'Visual Studio Enterprise (0baeb8ad-3e0a-4c8f-a740-07e0327cc188)'
+
+      - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV4@4
+        displayName: 'Terraform : apply'
+        inputs:
+          command: apply
+          workingDirectory: Terraform
+          environmentServiceNameAzureRM: 'Visual Studio Enterprise (0baeb8ad-3e0a-4c8f-a740-07e0327cc188)'
