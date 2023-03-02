@@ -41,11 +41,11 @@ steps:
     tags: 'latest'
 
 - task: AzureRmWebAppDeployment@4
-inputs:
-  ConnectionType: 'AzureRM'
-  azureSubscription: 'Visual Studio Enterprise (0baeb8ad-3e0a-4c8f-a740-07e0327cc188)'
-  appType: 'webAppLinux'
-  WebAppName: 'maven-appservice'
-  packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Visual Studio Enterprise (0baeb8ad-3e0a-4c8f-a740-07e0327cc188)'
+    appType: 'webAppLinux'
+    WebAppName: 'maven-appservice'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
 
 
