@@ -1,5 +1,5 @@
 resource "azurerm_service_plan" "maven-appservice" {
-  name                = "maven-appservice-plan"
+  name                = "maven-appservice"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   os_type             = "Linux"
@@ -10,7 +10,7 @@ resource "azurerm_linux_web_app" "appservice" {
   name                = "maven-appservice"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  service_plan_id     = azurerm_app_service_plan.maven-appservice.id
+  service_plan_id     = azurerm_service_plan.maven-appservice.id
 
   site_config {}
 }
