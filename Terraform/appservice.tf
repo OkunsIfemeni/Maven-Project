@@ -1,32 +1,16 @@
-# Create an App Service Plan
-resource "azurerm_service_plan" "maven-appservicep" {
+resource "azurerm_service_plan" "maven-appservice" {
   name                = "maven-appserviceplan"
+  resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  resource_group_name = okunsrg-resource-group
-  sku {
-    tier = "Standard"
-    size = "S1"
-  }
+  os_type             = "Linux"
+  sku_name            = "P1v2"
 }
 
-# Create an App Service
-resource "azurerm_app_service" "appservice" {
+resource "azurerm_linux_web_app" "appservice" {
   name                = "maven-appservice"
+  resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  resource_group_name = okunsrg-resource-group
-  app_service_plan_id = azurerm_app_service_plan.maven-appservice.id
-    
-#(Optional)
-  site_config {
-dotnet_framework_version = "v4.0"
-    scm_type                 = "LocalGit"
-  }
-  
-  #(Optional)
-  app_settings = {
-    "SOME_KEY" = "some-value"
-  }
+  service_plan_id     = azurerm_app_service_plan.maven-appservice.id
 
+  site_config {}
 }
-
-
