@@ -1,4 +1,5 @@
 # Maven
+
 # Build your Java project and run tests with Apache Maven.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
@@ -40,12 +41,9 @@ steps:
     command: 'push'
     tags: 'latest'
 
-- task: AzureRmWebAppDeployment@4
+- task: AzureCLI@2
   inputs:
-    ConnectionType: 'AzureRM'
     azureSubscription: 'Visual Studio Enterprise (0baeb8ad-3e0a-4c8f-a740-07e0327cc188)'
-    appType: 'webAppLinux'
-    WebAppName: 'maven-appservice'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
-
-
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'az webapp config container set --docker-custom-image-name react-and-spring-data-rest:latest --docker-registry-server-password 7TmvC73d1dyoHcesCqqhDWEJ1h+BvpD5I8rNiyD81p+ACRD0qbTc --docker-registry-server-url https://mavenacr2023.azurecr.io --docker-registry-server-user mavenacr2023 --name maven-appservice --resource-group mavenRG'
