@@ -30,4 +30,4 @@ steps:
     azureSubscription: 'Visual Studio Enterprise (0baeb8ad-3e0a-4c8f-a740-07e0327cc188)'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
-    inlineScript: 'az webapp config container set --docker-custom-image-name $(image_name) --docker-registry-server-password $(acr_password) --docker-registry-server-url $(dockerserver_url) --docker-registry-server-user $(server_user) --name $(appservice_name) --resource-group $(appservice_rg)'
+    inlineScript: 'az webapp config container set --docker-custom-image-name $(image_name):$(Build.BuildId) --docker-registry-server-password $(acr_password) --docker-registry-server-url $(dockerserver_url) --docker-registry-server-user $(server_user) --name $(appservice_name) --resource-group $(appservice_rg)'
