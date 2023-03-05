@@ -11,39 +11,23 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: Maven@3
+- task: Maven@4
+  displayName: 'maven clean package'
   inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
-    
-   # Build Docker image
-- task: Maven@3
-  displayName: "Build Docker image"
-  inputs:
-    mavenPomFile: '$(System.DefaultWorkingDirectory)/pom.xml'
-    goals: 'spring-boot:build-image'
-    publishJUnitResults: false
-    jdkVersionOption: 'default'
-    mavenOptions: '-Xmx3072m -Dspring-boot.build-image.imageName=mavenacr2023.azurecr.io/my/container'
+    goals: 'clean package -DskipTests=false'
 
   # Push container image
 - task: Docker@2
-  displayName: "Push Docker image"
+  displayName: "Build and Push Docker image"
   inputs:
     containerRegistry: 'acr-connection'
     repository: 'react-and-spring-data-rest'
-    command: 'push'
-    tags: 'latest'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
 
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'Visual Studio Enterprise (0baeb8ad-3e0a-4c8f-a740-07e0327cc188)'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
-    inlineScript: 'az webapp config container set --docker-custom-image-name mavenacr2023.azurecr.io/react-and-spring-data-rest:latest --docker-registry-server-password 7TmvC73d1dyoHcesCqqhDWEJ1h+BvpD5I8rNiyD81p+ACRD0qbTc --docker-registry-server-url https://mavenacr2023.azurecr.io --docker-registry-server-user mavenacr2023 --name maven-appservice --resource-group mavenRG'
+    inlineScript: 'az webapp config container set --docker-custom-image-name $(image_name) --docker-registry-server-password $(acr_password) --docker-registry-server-url $(dockerserver_url) --docker-registry-server-user $(server_user) --name $(appservice_name) --resource-group $(appservice_rg)'
